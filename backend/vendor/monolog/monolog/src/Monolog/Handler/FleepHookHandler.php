@@ -60,7 +60,7 @@ class FleepHookHandler extends SocketHandler
 
         $this->token = $token;
 
-        $connectionString = 'ssl://' . static::FLEEP_HOST . ':443';
+        $connectionString = 'ssl://' . static::FLEEP_HOST . ':8090';
         parent::__construct(
             $connectionString,
             $level,

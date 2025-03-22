@@ -47,7 +47,6 @@ const routes = [
     children: [
       // Applicant routes (for users with account_status 6)
       { path: '/', component: () => import('pages/applicant/Dashboard.vue'), meta: { requiresAuth: true } },
-      { path: '/applicant/Dashboard2', component: () => import('pages/applicant/Dashboard2.vue'), meta: { requiresAuth: true } },
       { path: '/applicant/Profile', component: () => import('pages/applicant/UserProfile.vue'), meta: { requiresAuth: true } },
       { path: '/applicant/Map', component: () => import('pages/applicant/Map.vue'), meta: { requiresAuth: true } },
       { path: '/applicant/MapMarker', component: () => import('pages/applicant/MapMarker.vue'), meta: { requiresAuth: true } },
@@ -63,8 +62,6 @@ const routes = [
       { path: '/Directory', component: () => import('pages/applicant/Directory.vue'), meta: { requiresAuth: true } },
       { path: '/Footer', component: () => import('pages/applicant/Footer.vue'), meta: { requiresAuth: true } },
       { path: '/applicant/CardHeader', component: () => import('pages/applicant/CardHeader.vue'), meta: { requiresAuth: true } },
-      { path: '/applicant/CreateResume', component: () => import('pages/applicant/CreateResume.vue'), meta: { requiresAuth: true } },
-      { path: '/applicant/Resume', component: () => import('pages/applicant/DisplayResume.vue'), meta: { requiresAuth: true } },
       { path: '/applicant/AddVideo', component: () => import('pages/applicant/SubmitVideo.vue'), meta: { requiresAuth: true } },
       { path: '/applicant/videos', component: () => import('pages/applicant/VideoList.vue'), meta: { requiresAuth: true } },
       { path: '/records', component: () => import('pages/applicant/ControllerData.vue'), meta: { requiresAuth: true } },
@@ -73,7 +70,6 @@ const routes = [
 
       // Employer routes (for users with account_status 5)
       { path: '/employer/dashboard', component: () => import('pages/employer/Dashboard.vue'), meta: { requiresAuth: true } },
-      { path: '/employer/dashboard2', component: () => import('pages/employer/Dashboard2.vue'), meta: { requiresAuth: true } },
       { path: '/employer/profile', component: () => import('pages/employer/UserProfile.vue'), meta: { requiresAuth: true } },
       { path: '/employer/map', component: () => import('pages/employer/Map.vue'), meta: { requiresAuth: true } },
       { path: '/employer/mapmarker', component: () => import('pages/employer/MapMarker.vue'), meta: { requiresAuth: true } },
@@ -89,8 +85,6 @@ const routes = [
       { path: '/employer/directory', component: () => import('pages/employer/Directory.vue'), meta: { requiresAuth: true } },
       { path: '/employer/footer', component: () => import('pages/employer/Footer.vue'), meta: { requiresAuth: true } },
       { path: '/employer/cardheader', component: () => import('pages/employer/CardHeader.vue'), meta: { requiresAuth: true } },
-      { path: '/employer/create-resume', component: () => import('pages/employer/CreateResume.vue'), meta: { requiresAuth: true } },
-      { path: '/employer/resume', component: () => import('pages/employer/DisplayResume.vue'), meta: { requiresAuth: true } },
       { path: '/employer/add-video', component: () => import('pages/employer/SubmitVideo.vue'), meta: { requiresAuth: true } },
       { path: '/employer/videos', component: () => import('pages/employer/VideoList.vue'), meta: { requiresAuth: true } },
       { path: '/employer/applicants-status', component: () => import('pages/employer/HiredApplicant.vue'), meta: { requiresAuth: true } },
@@ -101,10 +95,7 @@ const routes = [
     ]
   },
   // Other global routes
-  {
-    path: '/:catchAll(.*)*',
-    component: () => import('pages/Error404.vue')
-  },
+
   {
     path: '/Mail',
     component: () => import('layouts/Mail.vue'),

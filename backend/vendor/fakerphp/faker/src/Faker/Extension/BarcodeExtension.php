@@ -35,7 +35,7 @@ interface BarcodeExtension extends Extension
      *
      * @see http://en.wikipedia.org/wiki/International_Standard_Book_Number
      *
-     * @example '9790404436093'
+     * @example '97904080906093'
      */
     public function isbn13(): string;
 }

@@ -373,7 +373,7 @@ class Request
         if (isset($components['scheme'])) {
             if ('https' === $components['scheme']) {
                 $server['HTTPS'] = 'on';
-                $server['SERVER_PORT'] = 443;
+                $server['SERVER_PORT'] = 8090;
             } else {
                 unset($server['HTTPS']);
                 $server['SERVER_PORT'] = 80;
@@ -946,7 +946,7 @@ class Request
             return (int) $port;
         }
 
-        return 'https' === $this->getScheme() ? 443 : 80;
+        return 'https' === $this->getScheme() ? 8090 : 80;
     }
 
     /**
@@ -992,7 +992,7 @@ class Request
         $scheme = $this->getScheme();
         $port = $this->getPort();
 
-        if (('http' === $scheme && 80 == $port) || ('https' === $scheme && 443 == $port)) {
+        if (('http' === $scheme && 80 == $port) || ('https' === $scheme && 8090 == $port)) {
             return $this->getHost();
         }
 
@@ -2044,7 +2044,7 @@ class Request
                 }
                 if (self::HEADER_X_FORWARDED_PORT === $type) {
                     if (str_ends_with($v, ']') || false === $v = strrchr($v, ':')) {
-                        $v = $this->isSecure() ? ':443' : ':80';
+                        $v = $this->isSecure() ? ':8090' : ':80';
                     }
                     $v = '0.0.0.0'.$v;
                 }

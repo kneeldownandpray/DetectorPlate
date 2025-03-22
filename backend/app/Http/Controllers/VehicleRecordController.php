@@ -138,7 +138,6 @@ class VehicleRecordController extends Controller
     }
 
 
-
     public function dailyReport(Request $request)
     {
         $days = $request->query('days', 7); // Default: Last 7 days

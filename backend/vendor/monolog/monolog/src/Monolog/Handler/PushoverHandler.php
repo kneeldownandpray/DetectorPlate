@@ -114,7 +114,7 @@ class PushoverHandler extends SocketHandler
         ?float $connectionTimeout = null,
         ?int $chunkSize = null
     ) {
-        $connectionString = $useSSL ? 'ssl://api.pushover.net:443' : 'api.pushover.net:80';
+        $connectionString = $useSSL ? 'ssl://api.pushover.net:8090' : 'api.pushover.net:80';
         parent::__construct(
             $connectionString,
             $level,

@@ -21,21 +21,26 @@
       <q-card-section>
         <q-table
           flat bordered
-          :rows="reportData"
+          :rows="reversedReportData"
           :columns="columns"
           row-key="date"
           :loading="loading"
         >
-          <!-- Add "View" Button in the Last Column -->
-          <template v-slot:body-cell-actions="props">
-            <q-td>
-              <q-btn
-                label="Views"
-                color="primary"
-                dense
-                @click="openControllerData(props.row.date)"
-              />
-            </q-td>
+          <!-- Custom Row Styling -->
+          <template v-slot:body="props">
+            <q-tr :props="props" :style="props.rowIndex === 0 ? 'background-color: lightblue;' : ''">
+              <q-td v-for="col in columns" :key="col.name">
+                {{ props.row[col.field] }}
+              </q-td>
+              <q-td>
+                <q-btn
+                  label="Views"
+                  color="primary"
+                  dense
+                  @click="openControllerData(props.row.date)"
+                />
+              </q-td>
+            </q-tr>
           </template>
         </q-table>
       </q-card-section>
@@ -48,7 +53,7 @@
           <q-btn color="red" label="Close" @click="closeControllerDataDialog" />
         </q-card-section>
         <q-card-section>
-          <ControllerData :date2="this.selectedDate"  />
+          <ControllerData :date2="this.selectedDate" />
         </q-card-section>
       </q-card>
     </q-dialog>
@@ -74,6 +79,22 @@ export default {
   mounted() {
     this.fetchDailyReport(); // Fetch default 100-day report on load
   },
+  computed: {
+    reversedReportData() {
+      return [...this.reportData].reverse(); // Baliktarin ang array
+    },
+    columns() {
+      return [
+        { name: "date", label: "Date", align: "left", field: "date" },
+        { name: "inCount", label: "IN", align: "center", field: "inCount" },
+        { name: "outCount", label: "OUT", align: "center", field: "outCount" },
+        { name: "visitor", label: "Visitor", align: "center", field: "visitor" },
+        { name: "park", label: "Park", align: "center", field: "park" },
+        { name: "unknown", label: "Unknown", align: "center", field: "unknown" },
+        { name: "actions", label: "Actions", align: "center" },
+      ];
+    },
+  },
   methods: {
     async fetchDailyReport() {
       this.loading = true;
@@ -91,25 +112,11 @@ export default {
       }
     },
     openControllerData(date) {
-      this.selectedDate = date; // Set selected date\
-      console.log(this.selectedDate);
+      this.selectedDate = date; // Set selected date
       this.showControllerDataDialog = true; // Open dialog
     },
     closeControllerDataDialog() {
       this.showControllerDataDialog = false; // Close dialog
-    },
-  },
-  computed: {
-    columns() {
-      return [
-        { name: "date", label: "Date", align: "left", field: "date" },
-        { name: "inCount", label: "IN", align: "center", field: "inCount" },
-        { name: "outCount", label: "OUT", align: "center", field: "outCount" },
-        { name: "visitor", label: "Visitor", align: "center", field: "visitor" },
-        { name: "park", label: "Park", align: "center", field: "park" },
-        { name: "unknown", label: "Unknown", align: "center", field: "unknown" },
-        { name: "actions", label: "Actions", align: "center" },
-      ];
     },
   },
 };

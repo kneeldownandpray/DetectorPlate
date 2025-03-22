@@ -96,7 +96,7 @@ class Barcode extends Base
      *
      * @return string
      *
-     * @example '9790404436093'
+     * @example '97904080906093'
      */
     public function isbn13()
     {

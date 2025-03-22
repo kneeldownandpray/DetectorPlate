@@ -33,6 +33,9 @@
     </div>
 
     <!-- Vehicle Records Table -->
+    
+    <!-- props.row.vehicle_status gusto ko kapag 1 yan yon ay color light greed. pag zero light red -->
+
     <q-card v-if="savedData.length" class="q-mb-md">
       <q-card-section>
         <q-table
@@ -43,7 +46,9 @@
           flat
         >
           <template v-slot:body="props">
-            <q-tr :props="props">
+            <q-tr :props="props"
+             :style="{ backgroundColor: props.row.vehicle_status === 1 ? '#d4edda' : '#f8d7da' }"
+            >
               <q-td :props="props" key="pattern">
                 <q-input
                   v-model="props.row.pattern"
@@ -56,7 +61,10 @@
               </q-td>
               <q-td :props="props" key="color">
                 <div class="q-mb-xs">
-                  <span :style="{ color: props.row.color }">{{ props.row.color }}</span>
+                  <span :style="{ color: props.row.color }">{{ props.row.color }}
+                   
+
+                  </span>
                 </div>
                 <div :style="{ backgroundColor: props.row.color }" style="height: 20px; width: 20px; border-radius: 50%;"></div>
               </q-td>

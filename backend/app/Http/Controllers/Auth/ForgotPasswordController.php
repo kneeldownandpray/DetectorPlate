@@ -32,7 +32,7 @@ class ForgotPasswordController extends Controller
         $user->createToken($token, ['password-reset'])->plainTextToken;
     
         // Create the reset link pointing to the frontend
-        $resetLink = 'https://0aa2-138-84-78-233.ngrok-free.app/resetpassword?token=' . $token . '&email=' . urlencode($email);
+        $resetLink = 'https://ppark.online/resetpassword?token=' . $token . '&email=' . urlencode($email);
     
         // Send the email
         Mail::raw("Click the following link to reset your password: $resetLink", function ($message) use ($email) {

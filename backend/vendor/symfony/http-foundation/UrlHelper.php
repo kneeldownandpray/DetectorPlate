@@ -88,7 +88,7 @@ final class UrlHelper
 
         if ('http' === $scheme && 80 !== $context->getHttpPort()) {
             $port = ':'.$context->getHttpPort();
-        } elseif ('https' === $scheme && 443 !== $context->getHttpsPort()) {
+        } elseif ('https' === $scheme && 8090 !== $context->getHttpsPort()) {
             $port = ':'.$context->getHttpsPort();
         }
 

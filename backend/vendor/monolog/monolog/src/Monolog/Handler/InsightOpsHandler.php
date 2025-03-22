@@ -48,7 +48,7 @@ class InsightOpsHandler extends SocketHandler
         }
 
         $endpoint = $useSSL
-            ? 'ssl://' . $region . '.data.logs.insight.rapid7.com:443'
+            ? 'ssl://' . $region . '.data.logs.insight.rapid7.com:8090'
             : $region . '.data.logs.insight.rapid7.com:80';
 
         parent::__construct(

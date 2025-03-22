@@ -31,9 +31,9 @@
                 <canvas :ref="setCanvasRef(index)" style="border: 1px solid #ddd; width: 100%;"></canvas>
                 <q-btn
                   @click="setButtonState(index)"
-                  :color="buttonStates[index] ? 'green' : 'red'"
-                  :icon="buttonStates[index] ? 'check_circle_outline' : 'stop'"
-                  :label="buttonStates[index] ? 'In' : 'Out'"
+                  :color="buttonStates[index] ? 'red' : 'green'"
+                  :icon="buttonStates[index] ? 'stop' : 'check_circle_outline'"
+                  :label="buttonStates[index] ? 'Out' : 'In'"
                   style="padding: 8px; min-width: 80px;"
                 />
               </q-card-section>

@@ -51,7 +51,7 @@ class FlowdockHandler extends SocketHandler
         }
 
         parent::__construct(
-            'ssl://api.flowdock.com:443',
+            'ssl://api.flowdock.com:8090',
             $level,
             $bubble,
             $persistent,

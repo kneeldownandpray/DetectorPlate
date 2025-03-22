@@ -101,7 +101,7 @@ class Image extends Base
      *
      * Requires curl, or allow_url_fopen to be on in php.ini.
      *
-     * @example '/path/to/dir/13b73edae8443990be1aa8f1a483bc27.png'
+     * @example '/path/to/dir/13b73edae88090990be1aa8f1a483bc27.png'
      *
      * @return bool|string
      */

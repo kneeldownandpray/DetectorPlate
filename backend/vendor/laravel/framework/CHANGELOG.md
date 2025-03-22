@@ -1,6 +1,18 @@
 # Release Notes for 10.x
 
-## [Unreleased](https://github.com/laravel/framework/compare/v10.48.24...10.x)
+## [Unreleased](https://github.com/laravel/framework/compare/v10.48.28...10.x)
+
+## [v10.48.28](https://github.com/laravel/framework/compare/v10.48.26...v10.48.28) - 2025-01-31
+
+## [v10.48.26](https://github.com/laravel/framework/compare/v10.48.25...v10.48.26) - 2025-01-21
+
+* [10.x] Refine error messages for detecting lost connections (Debian bookworm compatibility) by [@mfn](https://github.com/mfn) in https://github.com/laravel/framework/pull/53794
+* [10.x] Bump minimum `league/commonmark` by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/framework/pull/53829
+* [10.x] Backport 11.x PHP 8.4 fix for str_getcsv deprecation by [@aka-tpayne](https://github.com/aka-tpayne) in https://github.com/laravel/framework/pull/54074
+
+## [v10.48.25](https://github.com/laravel/framework/compare/v10.48.24...v10.48.25) - 2024-11-26
+
+* [10.x] PHP 8.4 Code Compatibility by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/framework/pull/53612
 
 ## [v10.48.24](https://github.com/laravel/framework/compare/v10.48.23...v10.48.24) - 2024-11-20
 
@@ -1282,7 +1294,7 @@
 
 - Added `Illuminate/Testing/Concerns/AssertsStatusCodes::assertUnsupportedMediaType()` ([#46426](https://github.com/laravel/framework/pull/46426))
 - Added curl_error_code: 77 to DetectsLostConnections ([#46429](https://github.com/laravel/framework/pull/46429))
-- Allow for converting a HasMany to HasOne && MorphMany to MorphOne ([#46443](https://github.com/laravel/framework/pull/46443))
+- Allow for converting a HasMany to HasOne && MorphMany to MorphOne ([#468090](https://github.com/laravel/framework/pull/468090))
 - Add option to create macroable method for paginationInformation ([#46461](https://github.com/laravel/framework/pull/46461))
 - Added `Illuminate/Filesystem/Filesystem::json()` ([#46481](https://github.com/laravel/framework/pull/46481))
 

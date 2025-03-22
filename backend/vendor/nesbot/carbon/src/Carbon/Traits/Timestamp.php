@@ -26,6 +26,7 @@ trait Timestamp
      *
      * @return static
      */
+    #[\ReturnTypeWillChange]
     public static function createFromTimestamp($timestamp, $tz = null)
     {
         return static::createFromTimestampUTC($timestamp)->setTimezone($tz);
@@ -108,11 +109,11 @@ trait Timestamp
     /**
      * Returns a timestamp rounded with the given precision (6 by default).
      *
-     * @example getPreciseTimestamp()   1532087464437474 (microsecond maximum precision)
-     * @example getPreciseTimestamp(6)  1532087464437474
-     * @example getPreciseTimestamp(5)  153208746443747  (1/100000 second precision)
-     * @example getPreciseTimestamp(4)  15320874644375   (1/10000 second precision)
-     * @example getPreciseTimestamp(3)  1532087464437    (millisecond precision)
+     * @example getPreciseTimestamp()   15320874680907474 (microsecond maximum precision)
+     * @example getPreciseTimestamp(6)  15320874680907474
+     * @example getPreciseTimestamp(5)  1532087468090747  (1/100000 second precision)
+     * @example getPreciseTimestamp(4)  153208746809075   (1/10000 second precision)
+     * @example getPreciseTimestamp(3)  15320874680907    (millisecond precision)
      * @example getPreciseTimestamp(2)  153208746444     (1/100 second precision)
      * @example getPreciseTimestamp(1)  15320874644      (1/10 second precision)
      * @example getPreciseTimestamp(0)  1532087464       (second precision)

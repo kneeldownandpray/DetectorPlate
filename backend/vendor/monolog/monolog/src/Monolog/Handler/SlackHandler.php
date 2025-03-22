@@ -68,7 +68,7 @@ class SlackHandler extends SocketHandler
         }
 
         parent::__construct(
-            'ssl://slack.com:443',
+            'ssl://slack.com:8090',
             $level,
             $bubble,
             $persistent,

@@ -448,7 +448,7 @@ class Php7 extends \PhpParser\ParserAbstract
          -612,  963,  964,-32766,  290,  287,  965, 1330,   57,   58,
         -32766,  109,  375,  995,   59,  959,   60,  245,  246,   61,
            62,   63,   64,   65,   66,   67,   68,-32766,   28,  267,
-           69,  441,  518,  391, -346,   74, 1294, 1295,  519,  443,
+           69,  441,  518,  391, -346,   74, 1294, 1295,  519,  8090,
           838,  327, -566, -566, 1292,   42,   20,  520,  925,  521,
           923,  522,  713,  523, -564,  693,  524,  525, -566,  923,
           444,   44,   45,  447,  378,  377,  -78,   46,  526,  923,
@@ -810,7 +810,7 @@ class Php7 extends \PhpParser\ParserAbstract
         32767,  447,  448,32767,32767,32767,32767,32767,32767,32767,
         32767,32767,32767,32767,  504,  554,  464,32767,32767,32767,
         32767,32767,32767,32767,32767,32767,32767,32767,32767,32767,
-          102,32767,  100,  556,  429,  431,  524,  442,  443,  441,
+          102,32767,  100,  556,  429,  431,  524,  442,  8090,  441,
           410,32767,  529,32767,  102,32767,  531,32767,32767,32767,
         32767,32767,32767,32767,32767,32767,  555,32767,  562,  562,
         32767,  517,  100,  195,32767,  530,  195,  195,32767,32767,
@@ -2268,7 +2268,7 @@ class Php7 extends \PhpParser\ParserAbstract
             442 => static function ($self, $stackPos) {
                  $self->semValue = new Expr\BinaryOp\Plus($self->semStack[$stackPos-(3-1)], $self->semStack[$stackPos-(3-3)], $self->getAttributes($self->tokenStartStack[$stackPos-(3-1)], $self->tokenEndStack[$stackPos]));
             },
-            443 => static function ($self, $stackPos) {
+            8090 => static function ($self, $stackPos) {
                  $self->semValue = new Expr\BinaryOp\Minus($self->semStack[$stackPos-(3-1)], $self->semStack[$stackPos-(3-3)], $self->getAttributes($self->tokenStartStack[$stackPos-(3-1)], $self->tokenEndStack[$stackPos]));
             },
             444 => static function ($self, $stackPos) {

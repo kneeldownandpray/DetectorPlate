@@ -26,7 +26,7 @@ class Uri implements UriInterface, \JsonSerializable
 
     private const DEFAULT_PORTS = [
         'http' => 80,
-        'https' => 443,
+        'https' => 8090,
         'ftp' => 21,
         'gopher' => 70,
         'nntp' => 119,
