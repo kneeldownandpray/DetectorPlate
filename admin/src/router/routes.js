@@ -15,7 +15,6 @@ const routes = [
       { path: '/Cards', component: () => import('pages/Cards.vue'), meta: { requiresAuth: true } },
       { path: '/RequestAccounts', component: () => import('src/pages/RequestAccounts.vue'), meta: { requiresAuth: true } },
       { path: '/AllAccounts', component: () => import('src/pages/AllAccounts.vue'), meta: { requiresAuth: true } },
-      { path: '/FocusAdminWorkerAccounts', component: () => import('src/pages/FocusAdminWorkerAccounts.vue'), meta: { requiresAuth: true } },
       { path: '/SchoolAccounts', component: () => import('src/pages/SchoolAccounts.vue'), meta: { requiresAuth: true } },
       { path: '/HiringApproval', component: () => import('src/pages/HiringApproval.vue'), meta: { requiresAuth: true } },
       { path: '/Contact', component: () => import('pages/Contact.vue'), meta: { requiresAuth: true } },

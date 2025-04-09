@@ -130,7 +130,7 @@
 <script>
 import { defineComponent, ref, computed } from 'vue';
 import axios from 'axios';
-import { io } from 'socket.io-client';
+// import { io } from 'socket.io-client';
 
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
@@ -172,15 +172,15 @@ export default defineComponent({
     };
   },
   created() {
-    const socketBaseUrl = import.meta.env.VITE_SOCKET_BASE_URL;
-    this.socket = io(socketBaseUrl); 
-    this.socket.on('receiverTriggerness', (action, id) => {
+//     const socketBaseUrl = import.meta.env.VITE_SOCKET_BASE_URL;
+//     this.socket = io(socketBaseUrl); 
+//     this.socket.on('receiverTriggerness', (action, id) => {
 
-    if(action == "WeHaveANewSignUpAccount"){
-      this.fetchUsers();
-    }
+//     if(action == "WeHaveANewSignUpAccount"){
+//       this.fetchUsers();
+//     }
 
-});
+// });
       
   },
   computed: {

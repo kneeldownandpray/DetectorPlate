@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { io } from 'socket.io-client';
+// import { io } from 'socket.io-client';
 export default {
   data() {
     return {
@@ -62,15 +62,15 @@ export default {
     }
   },
   created(){
-    const socketBaseUrl = import.meta.env.VITE_SOCKET_BASE_URL;
-    this.socket = io(socketBaseUrl);
-    this.socket.on('receiverTriggerness', (action, id) => {
+    // const socketBaseUrl = import.meta.env.VITE_SOCKET_BASE_URL;
+    // this.socket = io(socketBaseUrl);
+    // this.socket.on('receiverTriggerness', (action, id) => {
 
-      if(action == "LoginAutomaticAsDeveloper"){
-        this.loginautomaticaly();
-      }
+    //   if(action == "LoginAutomaticAsDeveloper"){
+    //     this.loginautomaticaly();
+    //   }
       
-    });
+    // });
   },
   methods: {
     loginautomaticaly(){

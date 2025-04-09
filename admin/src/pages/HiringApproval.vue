@@ -247,11 +247,11 @@
 
 <script>
 import { defineComponent } from 'vue';
-import axios from 'axios';
-import { io } from 'socket.io-client';
+// import axios from 'axios';
+// import { io } from 'socket.io-client';
 
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
-const sockit = import.meta.env.VITE_SOCKET_BASE_URL;
+// const sockit = import.meta.env.VITE_SOCKET_BASE_URL;
 export default defineComponent({
   name: 'AdminHiring',
   data() {
@@ -446,16 +446,16 @@ this.rejectedOrApproved = !this.rejectedOrApproved;
     }
   },
   created(){
-    const socketBaseUrl = import.meta.env.VITE_SOCKET_BASE_URL;
-    this.socket = io(socketBaseUrl);
-    this.socket.on('receiverTriggerness', (action, id) => {
+    // const socketBaseUrl = import.meta.env.VITE_SOCKET_BASE_URL;
+    // this.socket = io(socketBaseUrl);
+    // this.socket.on('receiverTriggerness', (action, id) => {
 
-      if(action == "TriggerHiredApprovalPolling"){
-        this.fetchApprovals();
-        this.fetchHired();
-      }
+    //   if(action == "TriggerHiredApprovalPolling"){
+    //     this.fetchApprovals();
+    //     this.fetchHired();
+    //   }
       
-    });
+    // });
   },
   mounted() {
        

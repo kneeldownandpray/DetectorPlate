@@ -1,0 +1,23 @@
+# Ignore node_modules and cache directories
+/admin/node_modules/
+/front/node_modules/
+/front/node_modules/.q-cache/
+/admin/node_modules/.q-cache/
+
+# Ignore build and dist directories
+/front/dist/
+/front/.quasar/
+
+# Ignore Laravel storage and session files
+/backend/storage/framework/cache/
+/backend/storage/framework/sessions/
+
+# Ignore vendor files (composer dependencies)
+/backend/vendor/
+
+# Ignore .env files
+.env
+
+# Ignore other temporary or generated files
+/admin/.quasar/
+/backend/bootstrap/cache/
