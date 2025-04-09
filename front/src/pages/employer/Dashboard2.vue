@@ -56,9 +56,9 @@
 </template>
 
 <script>
-import CameraLinker from "../components/CameraLinker.vue";
-import DecisioMaker from "../components/TextExtractor.vue";
-import ControllerData from "../components/ControllerData.vue";
+import CameraLinker from "../../components/CameraLinker.vue";
+import DecisioMaker from "../../components/TextExtractor.vue";
+import ControllerData from "../../components/ControllerData.vue";
 
 export default {
   components: {

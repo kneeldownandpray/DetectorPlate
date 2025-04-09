@@ -151,7 +151,7 @@
 </template>
 <script>
 import axios from 'axios';
-import CreateResume from '../components/CreateResume.vue'; // Import your CreateResume component
+import CreateResume from '../../components/CreateResume.vue'; // Import your CreateResume component
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
 export default {

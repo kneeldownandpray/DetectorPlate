@@ -103,7 +103,7 @@ const routes = [
   // Other global routes
   {
     path: '/:catchAll(.*)*',
-    component: () => import('pages/Error404.vue')
+    component: () => import('pages/employer/Error404.vue')
   },
   {
     path: '/Mail',
