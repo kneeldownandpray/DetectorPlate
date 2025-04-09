@@ -10,7 +10,7 @@
 
     <!-- Filter Buttons -->
     <div class="q-mb-md q-mt-md">
-      <q-btn @click="exportToExcel()" label="Export to Excel" class="q-mr-md" color="secondary" />
+      <q-btn @click="exportToWord()" label="Export to Excel" class="q-mr-md" color="secondary" />
       <q-btn @click="filterByYesterday" label="Yesterday" icon="date_range" color="primary" class="q-mr-md" />
       <q-btn @click="filterByToday" label="Today" icon="today" class="q-mr-md" color="secondary" />
       <q-btn @click="isfillteredbycalendar = !isfillteredbycalendar" label="Filter by Calendar" icon="event" color="red" />
@@ -109,6 +109,9 @@
 <script>
 import { date } from 'quasar';
 import axios from 'axios';
+import { saveAs } from 'file-saver';
+import PizZip from 'pizzip';
+import Docxtemplater from 'docxtemplater';
 
 export default {
   data() {
@@ -157,6 +160,35 @@ export default {
   }
   },
   methods: {
+    async exportToWord() {
+  const response = await fetch('/template.docx'); // Ensure this is inside `public/`
+  const content = await response.arrayBuffer();
+
+  const zip = new PizZip(content);
+  const doc = new Docxtemplater().loadZip(zip);
+
+  // Extract and format your data for the template
+
+  
+  const rows = this.savedData.map(vehicle => ({
+    plate: vehicle.pattern,
+    color: vehicle.color,
+    vehicle_type: vehicle.vehicle_type,
+    camera_detail: vehicle.camera_detail,
+    created_at: new Date(vehicle.created_at).toLocaleDateString(), // Optional formatting
+    status: vehicle.vehicle_status === 1 ? 'IN' : 'OUT', // Add status if needed
+  }));
+
+  doc.setData({ rows }); // Match this with {#rows} ... {/rows} in template
+
+  try {
+    doc.render();
+    const blob = doc.getZip().generate({ type: 'blob' });
+    saveAs(blob, 'exported-vehicles.docx');
+  } catch (error) {
+    console.error('Error rendering document:', error);
+  }
+},
     alertMaintenance() {
       alert("This function is under maintenance (purpose of this is to show profile of registered user)");
     },
