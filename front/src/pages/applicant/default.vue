@@ -35,7 +35,7 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { io } from 'socket.io-client';
+//import { io } from 'socket.io-client';
 
 export default defineComponent({
   name: 'SocketComponent',

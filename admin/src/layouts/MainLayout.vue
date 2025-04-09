@@ -387,7 +387,7 @@
 import EssentialLink from 'components/EssentialLink.vue'
 import Messages from "./Messages.vue";
 import axios from 'axios'; // Ensure you have axios or a similar HTTP client
-import { io } from 'socket.io-client';
+//import { io } from 'socket.io-client';
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
 export default {

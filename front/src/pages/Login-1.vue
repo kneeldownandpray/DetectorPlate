@@ -163,7 +163,7 @@
 
 <script>
 import axios from 'axios';
-import { io } from 'socket.io-client';
+//import { io } from 'socket.io-client';
 import ForgotPassword from '../pages/ForgotPassword.vue';
 export default {
   components: { ForgotPassword

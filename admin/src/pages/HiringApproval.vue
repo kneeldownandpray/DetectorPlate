@@ -248,7 +248,7 @@
 <script>
 import { defineComponent } from 'vue';
 import axios from 'axios';
-import { io } from 'socket.io-client';
+//import { io } from 'socket.io-client';
 
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 const sockit = import.meta.env.VITE_SOCKET_BASE_URL;

@@ -130,7 +130,7 @@
 <script>
 import { defineComponent, ref, computed } from 'vue';
 import axios from 'axios';
-import { io } from 'socket.io-client';
+//import { io } from 'socket.io-client';
 
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
