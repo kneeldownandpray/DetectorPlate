@@ -42,7 +42,7 @@ public function store(Request $request)
 public function index(Request $request, $user_id)
 {
     $search = $request->query('search');
-    $perPage = $request->query('per_page', 10);
+    $perPage = $request->query('per_page', 1000);
     $dateFilter = $request->query('date_filter');
     $startDate = $request->query('start_date');
     $endDate = $request->query('end_date');

@@ -10,7 +10,7 @@
 
     <!-- Filter Buttons -->
     <div class="q-mb-md q-mt-md">
-      <q-btn @click="exportToWord()" label="Export to Excel" class="q-mr-md" color="secondary" />
+      <q-btn @click="exportToWord()" label="Export to word" class="q-mr-md" color="primary" />
       <q-btn @click="filterByYesterday" label="Yesterday" icon="date_range" color="primary" class="q-mr-md" />
       <q-btn @click="filterByToday" label="Today" icon="today" class="q-mr-md" color="secondary" />
       <q-btn @click="isfillteredbycalendar = !isfillteredbycalendar" label="Filter by Calendar" icon="event" color="red" />
@@ -161,7 +161,7 @@ export default {
   },
   methods: {
     async exportToWord() {
-  const response = await fetch('/template.docx'); // Ensure this is inside `public/`
+  const response = await fetch('/template2.docx'); // Ensure this is inside `public/`
   const content = await response.arrayBuffer();
 
   const zip = new PizZip(content);
@@ -175,7 +175,7 @@ export default {
     color: vehicle.color,
     vehicle_type: vehicle.vehicle_type,
     camera_detail: vehicle.camera_detail,
-    created_at: new Date(vehicle.created_at).toLocaleDateString(), // Optional formatting
+    created_at: formatDate(props.row.created_at), // Optional formatting
     status: vehicle.vehicle_status === 1 ? 'IN' : 'OUT', // Add status if needed
   }));
 

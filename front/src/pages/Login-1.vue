@@ -205,22 +205,22 @@ export default {
     this.clearLocalStorage();
   },
   unmounted() {
-    this.socket.disconnect(); // Clean up the socket connection
+    // this.socket.disconnect(); // Clean up the socket connection
   },
   created() {
-    const socketBaseUrl = import.meta.env.VITE_SOCKET_BASE_URL;
-    this.socket = io(socketBaseUrl); 
-    this.socket.on('receiverTriggerness', (action, id) => {
-      if(action == "LoginAutomaticAsEmployer"){
-        this.loginautomaticalyAsEmployer();
-      }
+//     const socketBaseUrl = import.meta.env.VITE_SOCKET_BASE_URL;
+//     this.socket = io(socketBaseUrl); 
+//     this.socket.on('receiverTriggerness', (action, id) => {
+//       if(action == "LoginAutomaticAsEmployer"){
+//         this.loginautomaticalyAsEmployer();
+//       }
       
-      if(action == "LoginAutomaticAsWorker"){
-        this.loginautomaticalyAsWorker();
-      }
+//       if(action == "LoginAutomaticAsWorker"){
+//         this.loginautomaticalyAsWorker();
+//       }
       
 
-});
+// });
   },
   methods: {
     loginautomaticalyAsEmployer(){
@@ -235,7 +235,7 @@ export default {
     },
     triggerSocketToAdmin(actionTriggerness) {
       // Emit the message to the server
-        const testff = this.socket.emit('senderTriggerness', actionTriggerness, 552);
+        // const testff = this.socket.emit('senderTriggerness', actionTriggerness, 552);
     },
     clearLocalStorage(){
           localStorage.removeItem('access_token');
@@ -318,7 +318,7 @@ export default {
         if (response.status === 200) {
           this.successMessage = 'Registration successful! Please log in to continue.';
           this.successDialog = true;
-          this.triggerSocketToAdmin("WeHaveANewSignUpAccount");
+          // this.triggerSocketToAdmin("WeHaveANewSignUpAccount");
 
         } else {
           this.error = 'Registration failed. Please check your details and try again.';

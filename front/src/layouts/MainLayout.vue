@@ -116,14 +116,14 @@ export default {
     }
   },
   created(){
-    const socketBaseUrl = import.meta.env.VITE_SOCKET_BASE_URL;
-    this.socket = io(socketBaseUrl);
-    this.socket.on('receiverTriggerness', (action, id) => {
-      if(action == "AutomaticLogoutWorkerApplicant"){
-        this.handleLogout();
-      }
+    // const socketBaseUrl = import.meta.env.VITE_SOCKET_BASE_URL;
+    // this.socket = io(socketBaseUrl);
+    // this.socket.on('receiverTriggerness', (action, id) => {
+    //   if(action == "AutomaticLogoutWorkerApplicant"){
+    //     this.handleLogout();
+    //   }
       
-    });
+    // });
   },
 
   methods: {

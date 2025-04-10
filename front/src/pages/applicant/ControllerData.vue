@@ -15,6 +15,7 @@
           dense
           @update:model-value="fetchDailyReport"
         />
+        <q-btn @click="exportToWord()" label="Export to word" class="q-mr-md" color="primary" />
       </q-card-section>
 
       <!-- Table Displaying Report -->
@@ -63,6 +64,9 @@
 <script>
 import axios from "axios";
 import ControllerData from "../../components/ControllerData.vue";
+import { saveAs } from 'file-saver';
+import PizZip from 'pizzip';
+import Docxtemplater  from 'docxtemplater';
 
 export default {
   components: { ControllerData },
@@ -96,6 +100,34 @@ export default {
     },
   },
   methods: {
+    async exportToWord() {
+  try {
+    const response = await fetch('/template3.docx'); // dapat nasa /public
+    const content = await response.arrayBuffer();
+
+    const zip = new PizZip(content);
+    const doc = new Docxtemplater(zip);
+
+    const rows = this.reportData.map(item => ({
+      date: item.date,
+      inCount: item.inCount,
+      outCount: item.outCount,
+      visitor: item.visitor,
+      park: item.park,
+      unknown: item.unknown,
+    }));
+
+    doc.setData({ rows });
+
+    doc.render(); // Apply data to the template
+
+    const blob = doc.getZip().generate({ type: 'blob' });
+    saveAs(blob, `daily-vehicle-report-${this.selectedDays}-days.docx`);
+  } catch (error) {
+    console.error("Error exporting to Word:", error);
+  }
+},
+
     async fetchDailyReport() {
   this.loading = true;
   try {
