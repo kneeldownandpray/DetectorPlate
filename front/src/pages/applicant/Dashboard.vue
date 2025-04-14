@@ -96,7 +96,7 @@ export default {
       // Start a new timer
       this.detectionTimer = setTimeout(() => {
         if (this.detectedPlates.length) {
-          console.log("No new detection for 5 seconds, sending for analysis...");
+          console.log("No new detection for 2.5 seconds, sending for analysis...");
           this.sendToDecisionMaker();
         }
       }, 2500); // 5 seconds

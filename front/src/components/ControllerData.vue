@@ -79,7 +79,7 @@
                 />
               </q-td>
               <q-td :props="props" key="actions">
-                <q-btn @click="alertMaintenance()" icon="person" color="black" flat size="sm" />
+                <!-- <q-btn @click="alertMaintenance()" icon="person" color="black" flat size="sm" /> -->
                 <q-btn @click="editData(props.row)" icon="edit" color="primary" flat size="sm" />
                 <q-btn @click="deleteData(props.row)" icon="delete" color="negative" flat size="sm" />
               </q-td>
@@ -95,7 +95,7 @@
 
     <!-- Image Viewer Modal -->
     <q-dialog v-model="imageDialogVisible" style="z-index: 1111111;">
-      <q-card style="min-width: 350px;">
+      <q-card style="min-width: 70%;">
         <q-card-section>
           <q-img :src="selectedImage" alt="Full-size Plate Image" />
         </q-card-section>
@@ -175,7 +175,23 @@ export default {
     color: vehicle.color,
     vehicle_type: vehicle.vehicle_type,
     camera_detail: vehicle.camera_detail,
-    created_at: formatDate(props.row.created_at), // Optional formatting
+    created_at: (() => {
+  const date = new Date(vehicle.created_at);
+
+  const datePart = date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+
+  const timePart = date.toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+  });
+
+  return `${datePart} – ${timePart}`;
+})(),
     status: vehicle.vehicle_status === 1 ? 'IN' : 'OUT', // Add status if needed
   }));
 

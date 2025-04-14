@@ -1,5 +1,6 @@
 <template>
-  <div padding>
+  <div padding> 
+
     <div v-if="error" class="text-negative">{{ error }}</div>
     
     <q-btn v-if="!cameras.length" @click="detectCameras" color="primary" label="Detect Cameras" />
@@ -119,7 +120,9 @@ export default {
 
 
     const buttonStates = ref(new Array(cameras.length).fill(false)); // Initialize with all false
-    const cameraDetails = ref(new Array(cameras.value.length).fill(""));
+    // const cameraDetails = ref(new Array(cameras.value.length).fill(""));
+    const cameraDetails = ref([]);
+
 const toggleCameraState = (index) => {
   buttonStates.value[index] = !buttonStates.value[index];
   console.log(`Camera ${index} state changed to: ${buttonStates.value[index]}`);
@@ -181,75 +184,79 @@ const setButtonState = (index) => {
   canvas.height = video.videoHeight;
 
   const detectFrame = async () => {
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-    const predictions = await detectionModel.detect(video);
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  const predictions = await detectionModel.detect(video);
 
-    // Clear previous detections
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  // Clear previous detections
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-    for (const prediction of predictions) {
-      if (["car", "truck", "motor", "motorcycle"].includes(prediction.class)) {
-        const [x, y, width, height] = prediction.bbox;
+  for (const prediction of predictions) {
+    if (["car", "truck", "motor", "motorcycle"].includes(prediction.class)) {
+      const [x, y, width, height] = prediction.bbox;
 
-        // Draw bounding box
-        ctx.strokeStyle = "red";
-        ctx.lineWidth = 3;
-        ctx.strokeRect(x, y, width, height);
+      // ✅ Only process if the vehicle appears close (based on size of bbox)
+      const isVehicleClose = width > 60 && height > 60;
 
-        // Add label
-        ctx.fillStyle = "red";
-        ctx.font = "16px Arial";
-        ctx.fillText(prediction.class, x, y > 10 ? y - 5 : y + 15);
+      if (!isVehicleClose) {
+        continue; // Skip this one, too far
+      }
 
-        // Extract plate region
-        const croppedPlate = ctx.getImageData(x, y, width, height);
+      // Draw bounding box
+      ctx.strokeStyle = "red";
+      ctx.lineWidth = 3;
+      ctx.strokeRect(x, y, width, height);
 
-        // Convert extracted plate region to Base64
-        const tempCanvas = document.createElement("canvas");
-        const tempCtx = tempCanvas.getContext("2d");
-        tempCanvas.width = width;
-        tempCanvas.height = height;
-        tempCtx.putImageData(croppedPlate, 0, 0);
-        const plateImageBase64 = tempCanvas.toDataURL("image/png");
-        const color = getColor(ctx, x, y, width, height);
-        const plateText = await recognizePlate(croppedPlate);
+      // Add label
+      ctx.fillStyle = "red";
+      ctx.font = "16px Arial";
+      ctx.fillText(prediction.class, x, y > 10 ? y - 5 : y + 15);
 
-        const resetTriggernessCameraArray = JSON.parse(
-          localStorage.getItem("resetTriggernessCameraArray")
-        );
-        console.log(resetTriggernessCameraArray);
+      // Extract plate region
+      const croppedPlate = ctx.getImageData(x, y, width, height);
 
-        if (plateText) {
-          if (resetTriggernessCameraArray === false || resetTriggernessCameraArray === null) {
-            detections.value.push({
-              cameraType: buttonStates.value[index] !== undefined ? buttonStates.value[index] : false,
-              text: plateText,
-              color: color,
-              image: plateImageBase64, // Include the Base64 image
-              vehicleType: prediction.class, // Include the vehicle type
-              cameraDetail: cameraDetails.value[index],  // Add camera detail
-            });
-          } else if (resetTriggernessCameraArray === true) {
-            detections.value = [];
-            localStorage.setItem(
-              "resetTriggernessCameraArray",
-              JSON.stringify(false)
-            );
-            console.log(
-              "Resetting detections due to resetTriggernessCameraArray being true."
-            );
-          }
+      // Convert to Base64
+      const tempCanvas = document.createElement("canvas");
+      const tempCtx = tempCanvas.getContext("2d");
+      tempCanvas.width = width;
+      tempCanvas.height = height;
+      tempCtx.putImageData(croppedPlate, 0, 0);
+      const plateImageBase64 = tempCanvas.toDataURL("image/png");
 
-          // Emit the new plate detection to the parent component
-          emit("new-detection", detections.value);
-          console.log(detections.value);
+      const color = getColor(ctx, x, y, width, height);
+      const plateText = await recognizePlate(croppedPlate);
+
+      const resetTriggernessCameraArray = JSON.parse(
+        localStorage.getItem("resetTriggernessCameraArray")
+      );
+
+      if (plateText) {
+        if (resetTriggernessCameraArray === false || resetTriggernessCameraArray === null) {
+          detections.value.push({
+            cameraType: buttonStates.value[index] !== undefined ? buttonStates.value[index] : false,
+            text: plateText,
+            color: color,
+            image: plateImageBase64,
+            vehicleType: prediction.class,
+            cameraDetail: cameraDetails.value[index],
+          });
+        } else if (resetTriggernessCameraArray === true) {
+          detections.value = [];
+          localStorage.setItem("resetTriggernessCameraArray", JSON.stringify(false));
+          console.log("Resetting detections due to resetTriggernessCameraArray being true.");
         }
+
+        emit("new-detection", detections.value);
+        console.log(detections.value);
       }
     }
-    requestAnimationFrame(detectFrame);
-  };
-  detectFrame();
+  }
+
+  requestAnimationFrame(detectFrame);
+};
+
+detectFrame();
+
 };
 
 
@@ -311,7 +318,19 @@ const getColor = (ctx, x, y, width, height) => {
       extractedText.value = data.text.trim();
     };
 
-    onMounted(detectCameras);
+    // onMounted(detectCameras);
+    onMounted(() => {
+  detectCameras();
+
+  const savedDetails = JSON.parse(localStorage.getItem("cameraDetails"));
+  if (Array.isArray(savedDetails)) {
+    cameraDetails.value = savedDetails;
+  }
+});
+
+watch(cameraDetails, (newVal) => {
+  localStorage.setItem("cameraDetails", JSON.stringify(newVal));
+}, { deep: true });
 
     return {
       cameras,
@@ -336,3 +355,4 @@ const getColor = (ctx, x, y, width, height) => {
     },
   };
   </script>
+  

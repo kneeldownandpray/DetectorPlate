@@ -64,7 +64,7 @@ export default {
 
       // Concatenate all text data
       const concatenatedText = this.plates
-        .map((item) => item.text.replace(/[-_=.,~()]/g, " "))
+        .map((item) => item.text.replace(/_-—[-_=.,~()]|/g, " "))
         .join(" ");
       this.extractPattern(concatenatedText);
       this.analyzeColors();

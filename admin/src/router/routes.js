@@ -5,7 +5,7 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '/', component: () => import('pages/Dashboard.vue'), meta: { requiresAuth: true } },
+      { path: '/', component: () => import('src/pages/SchoolAccounts.vue'), meta: { requiresAuth: true } },
       { path: '/Dashboard2', component: () => import('pages/Dashboard2.vue'), meta: { requiresAuth: true } },
       { path: '/Profile', component: () => import('pages/UserProfile.vue'), meta: { requiresAuth: true } },
       { path: '/Map', component: () => import('pages/Map.vue'), meta: { requiresAuth: true } },

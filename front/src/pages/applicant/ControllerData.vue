@@ -35,7 +35,7 @@
               </q-td>
               <q-td>
                 <q-btn
-                  label="Views"
+                  label="View"
                   color="primary"
                   dense
                   @click="openControllerData(props.row.date)"
@@ -89,13 +89,13 @@ export default {
     },
     columns() {
       return [
-        { name: "date", label: "Date", align: "center", field: "date" },
-        { name: "inCount", label: "IN", align: "center", field: "inCount" },
-        { name: "outCount", label: "OUT", align: "center", field: "outCount" },
-        { name: "visitor", label: "Visitor", align: "center", field: "visitor" },
-        { name: "park", label: "Park", align: "center", field: "park" },
-        { name: "unknown", label: "Unknown", align: "center", field: "unknown" },
-        { name: "actions", label: "Actions", align: "center" },
+        { name: "date", label: "Date", align: "left", field: "date" },
+        { name: "inCount", label: "IN", align: "left", field: "inCount" },
+        { name: "outCount", label: "OUT", align: "left", field: "outCount" },
+        { name: "visitor", label: "Visitor", align: "left", field: "visitor" },
+        { name: "park", label: "Park", align: "left", field: "park" },
+        { name: "unknown", label: "Unknown", align: "left", field: "unknown" },
+       
       ];
     },
   },
