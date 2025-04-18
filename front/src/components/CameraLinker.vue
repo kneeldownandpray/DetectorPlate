@@ -21,7 +21,9 @@
             <q-card >
               <q-card-section>
                 <p style="font-size:30px;">Camera {{ index + 1 }}</p>
-                <video
+                <video 
+
+                v-if="cameraControllerStates[index]"
                   :ref="setVideoRef(index)"
                   autoplay
                   playsinline
@@ -29,7 +31,7 @@
                   class="fit"
                   style="border: 1px solid #ddd; width: 100%; max-width: 640px; opacity: 0; height: 1px !important; width: 1px !important;"
                 ></video>
-                <canvas :ref="setCanvasRef(index)" style="border: 1px solid #ddd; width: 100%;"></canvas>
+                <canvas v-if="cameraControllerStates[index]" :ref="setCanvasRef(index)" style="border: 1px solid #ddd; width: 100%;"></canvas>
                 <div style="margin-top: 10px;">
                   <q-input
                   v-model="cameraDetails[index]" 
@@ -38,7 +40,7 @@
                     dense
                     autofocus
                   />
-
+           
                   <!-- v-model="cameraDetails[index]" -->
                 </div>
 
@@ -47,6 +49,15 @@
                   :color="buttonStates[index] ? 'green' : 'red'"
                   :icon="buttonStates[index] ? 'check_circle_outline' : 'stop'"
                   :label="buttonStates[index] ? 'In' : 'Out'"
+                  style="padding: 8px; min-width: 80px;"
+                />
+                <br>
+
+                <q-btn 
+                class="q-mt-sm"
+                  @click="setButtonState2(index)"
+                  :color="cameraControllerStates[index] ? 'yellow' : 'red'"
+                  :label="cameraControllerStates[index] ? 'Click to close' : 'Click to open'"
                   style="padding: 8px; min-width: 80px;"
                 />
               </q-card-section>
@@ -61,7 +72,7 @@
     <div v-if="detections.length" style="display: none;" class="q-mt-lg">
       <h2>Detected Plates</h2>
       <q-list >
-        <q-item v-for="(detection, index) in detections" :key="index" clickable @click="showImage(detection.image)">
+        <q-item  v-for="(detection, index) in detections" :key="index" clickable @click="showImage(detection.image)">
           <q-item-section avatar>
             <q-img :src="detection.image" style="max-width: 50px; border: 1px solid #ddd;" />
           </q-item-section>
@@ -117,8 +128,8 @@ export default {
     const startCamera3 = false; // Extracted text from image
     const setVideoRef = (index) => (el) => (videoRefs.value[index] = el);
     const setCanvasRef = (index) => (el) => (canvasRefs.value[index] = el);
-
-
+    // const cameraControllerStates = ref(false);
+    const cameraControllerStates = ref(new Array(cameras.length).fill(false));
     const buttonStates = ref(new Array(cameras.length).fill(false)); // Initialize with all false
     // const cameraDetails = ref(new Array(cameras.value.length).fill(""));
     const cameraDetails = ref([]);
@@ -130,8 +141,23 @@ const toggleCameraState = (index) => {
   console.log(buttonStates.value);
 };
 
+const toggleCameraState2 = (index) => {
+  cameraControllerStates.value[index] = !cameraControllerStates.value[index];
+  console.log(`Camera ${index} state changed to: ${cameraControllerStates.value[index]}`);
+
+  // if (!cameraControllerStates.value[index]) {
+  //   // If the camera is turned off, stop the stream
+  //   stopCamera(index);
+  // } 
+};
+
+
 const setButtonState = (index) => {
   toggleCameraState(index);
+};
+
+const setButtonState2 = (index) => {
+  toggleCameraState2(index);
 };
 
     const setCanvasRef2 = (index) => (el) => {
@@ -152,6 +178,15 @@ const setButtonState = (index) => {
         error.value = "Error detecting cameras.";
       }
     };
+
+    const stopCamera = (index) => {
+  const stream = streams.value[index];
+  if (stream) {
+    // Stop all video tracks to turn off the camera
+    stream.getTracks().forEach(track => track.stop());
+    console.log(`Camera ${index} turned off.`);
+  }
+};
 
     const startCameras = async () => {
       try {
@@ -351,6 +386,8 @@ watch(cameraDetails, (newVal) => {
       showImage,
       convertImageToText,
       setButtonState,
+      setButtonState2,
+      cameraControllerStates,
       };
     },
   };

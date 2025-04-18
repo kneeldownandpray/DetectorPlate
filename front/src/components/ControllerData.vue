@@ -126,7 +126,7 @@ export default {
         { name: 'pattern', label: 'Plate Pattern', align: 'left', field: 'pattern' },
         { name: 'color', label: 'Color', align: 'left', field: 'color' },
         { name: 'vehicleType', label: 'Vehicle Type', align: 'left', field: 'vehicle_type' },
-        { name: 'camera_detail', label: 'Detail', align: 'left', field: 'vehicle_type' },
+        { name: 'camera_detail', label: 'Location', align: 'left', field: 'vehicle_type' },
         { name: 'timestamp', label: 'Timestamp', align: 'left', field: 'created_at' },
         { name: 'image', label: 'Image', align: 'left', field: 'image' },
         { name: 'actions', label: 'Actions', align: 'center', field: 'actions' },
@@ -161,41 +161,42 @@ export default {
   },
   methods: {
     async exportToWord() {
-  const response = await fetch('/template2.docx'); // Ensure this is inside `public/`
+  const response = await fetch('/template2.docx');
   const content = await response.arrayBuffer();
 
   const zip = new PizZip(content);
   const doc = new Docxtemplater().loadZip(zip);
 
-  // Extract and format your data for the template
-
-  
   const rows = this.savedData.map(vehicle => ({
     plate: vehicle.pattern,
     color: vehicle.color,
     vehicle_type: vehicle.vehicle_type,
     camera_detail: vehicle.camera_detail,
     created_at: (() => {
-  const date = new Date(vehicle.created_at);
+      const date = new Date(vehicle.created_at);
+      const datePart = date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      });
+      const timePart = date.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true,
+      });
+      return `${datePart} – ${timePart}`;
+    })(),
+    status: vehicle.vehicle_status === 1 ? 'IN' : 'OUT',
+  }));
 
-  const datePart = date.toLocaleDateString('en-US', {
+  const exportDate = new Date();
+  const formattedExportDate = exportDate.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   });
 
-  const timePart = date.toLocaleTimeString('en-US', {
-    hour: 'numeric',
-    minute: '2-digit',
-    hour12: true,
-  });
-
-  return `${datePart} – ${timePart}`;
-})(),
-    status: vehicle.vehicle_status === 1 ? 'IN' : 'OUT', // Add status if needed
-  }));
-
-  doc.setData({ rows }); // Match this with {#rows} ... {/rows} in template
+  doc.setData({ rows, export_date: formattedExportDate });
 
   try {
     doc.render();
@@ -205,6 +206,7 @@ export default {
     console.error('Error rendering document:', error);
   }
 },
+
     alertMaintenance() {
       alert("This function is under maintenance (purpose of this is to show profile of registered user)");
     },
